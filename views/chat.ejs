@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <script>
+      let ws1, ws2; // Declara las variables globalmente
+
+      function connectWebSockets(username) {
+        ws1 = new WebSocket("ws://localhost:3000/ws/server1");
+        ws2 = new WebSocket("ws://localhost:3000/ws/server2");
+
+        // WebSocket 1
+        ws1.onopen = () => {
+          console.log("Conectado a Server 1");
+        };
+        ws1.onmessage = (event) => {
+          console.log("Mensaje desde Server 1: ", event.data);
+          displayMessage(`Server 1: ${event.data}`); // Mostrar el mensaje en el chat
+        };
+
+        // WebSocket 2
+        ws2.onopen = () => {
+          console.log("Conectado a Server 2");
+        };
+        ws2.onmessage = (event) => {
+          console.log("Mensaje desde Server 2: ", event.data);
+          displayMessage(`Server 2: ${event.data}`); // Mostrar el mensaje en el chat
+        };
+      }
+
+      function sendMessage() {
+        const input = document.getElementById("messageInput");
+        const message = input.value;
+
+        if (ws1 && ws1.readyState === WebSocket.OPEN) {
+          // Verifica que ws1 esté conectado
+          ws1.send(JSON.stringify({ username: "<%= username %>", message }));
+        }
+
+        if (ws2 && ws2.readyState === WebSocket.OPEN) {
+          // Verifica que ws2 esté conectado
+          ws2.send(JSON.stringify({ username: "<%= username %>", message }));
+        }
+
+        displayMessage(`Tú: ${message}`);
+        input.value = "";
+      }
+
+      function displayMessage(message) {
+        const messagesContainer = document.getElementById("messages");
+        const messageElement = document.createElement("p");
+        messageElement.textContent = message;
+        messagesContainer.appendChild(messageElement);
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        connectWebSockets("<%= username %>");
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Chat</h1>
+      <nav>
+        <a href="/auth/logout">Cerrar sesión</a>
+      </nav>
+    </header>
+    <main>
+      <div
+        id="messages"
+        style="
+          border: 1px solid black;
+          padding: 10px;
+          height: 300px;
+          overflow-y: auto;
+        "
+      >
+        <!-- Mensajes aparecerán aquí -->
+      </div>
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Escribe tu mensaje aquí"
+      />
+      <button onclick="sendMessage()">Enviar</button>
+    </main>
+  </body>
+</html>

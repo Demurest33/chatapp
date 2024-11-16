@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bienvenido al Proyecto Chat</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        Implementar un servidor web que consuma dos servicios WebSocket (2WS)
+      </h1>
+    </header>
+    <main>
+      <section>
+        <h2>Descripción del Proyecto</h2>
+        <p>
+          Esta aplicación permite a los usuarios registrarse, iniciar sesión y
+          participar en un chat en tiempo real. Utilizamos WebSockets para
+          proporcionar comunicación en tiempo real entre los usuarios y dos
+          servidores WebSocket que responden a los mensajes enviados.
+        </p>
+      </section>
+      <section>
+        <h2>Rutas Disponibles</h2>
+        <ul>
+          <li><strong>/auth/register:</strong> Registro de usuarios.</li>
+          <li><strong>/auth/login:</strong> Inicio de sesión.</li>
+          <li>
+            <strong>/chat:</strong> Página principal del chat (protegida).
+          </li>
+          <li>
+            <strong>/ws/server1:</strong> Conexión WebSocket al servidor 1.
+          </li>
+          <li>
+            <strong>/ws/server2:</strong> Conexión WebSocket al servidor 2.
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Cómo Usarlo</h2>
+        <ol>
+          <li>
+            Regístrate en la página de <a href="/auth/register">registro</a>.
+          </li>
+          <li>
+            Inicia sesión desde la página de <a href="/auth/login">login</a>.
+          </li>
+          <li>
+            Accede al <a href="/chat">chat</a> para comenzar a enviar y recibir
+            mensajes.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h2>Requisitos Técnicos</h2>
+        <ul>
+          <li>Node.js como entorno de ejecución.</li>
+          <li>Express para manejar las rutas y vistas.</li>
+          <li>SQLite como base de datos.</li>
+          <li>WebSockets para la comunicación en tiempo real.</li>
+          <li>JWT para autenticación.</li>
+        </ul>
+      </section>
+      <footer>
+        <p>&copy; 2024 Proyecto Chat</p>
+      </footer>
+    </main>
+  </body>
+</html>
